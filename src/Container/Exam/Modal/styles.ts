@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   },
   itemSeperator: {
     height: scale(1),
+    marginHorizontal: scale(10),
     backgroundColor: COLORS.description,
   },
   iconContainer: {

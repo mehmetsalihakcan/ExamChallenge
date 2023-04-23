@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
-import COLORS from '../../Theme/Colors';
-import {normalize, scale} from '../../Utils/Responsive';
+import COLORS from '../../../Theme/Colors';
+import {normalize, scale} from '../../../Utils/Responsive';
 
 const styles = StyleSheet.create({
   radioButton: {

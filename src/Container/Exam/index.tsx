@@ -1,4 +1,4 @@
-import {Image, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
 import styles from './styles';
 import {MainHeader, Slider} from '../../Componenets';
@@ -14,10 +14,10 @@ type Props = {
   route?: any;
 };
 
-import RadioGroup from '../../Componenets/RadioGrups/RadioGroup';
+import RadioGroup from './RadioGrups/RadioGroup';
 import {useRecoilState} from 'recoil';
 import {questionList} from '../../Store/atom';
-import {Item} from '../../Componenets/RadioGrups/types';
+import {Item} from './RadioGrups/types';
 
 const Exam: React.FC<Props> = ({navigation, route}) => {
   const insets = useSafeAreaInsets();
@@ -32,25 +32,26 @@ const Exam: React.FC<Props> = ({navigation, route}) => {
 
   const handlePrevious = () => {
     if (questionNumber !== 0) {
-      setQuestionNumber(questionNumber => questionNumber - 1);
+      setQuestionNumber(value => value - 1);
     }
   };
 
   const handleNext = () => {
     if (!selected) {
+      Alert.alert(
+        `Lütfen soruyu cevaplayınız.`,
+        `${questionNumber + 1}. suruya bir yanıt vermediniz!`,
+      );
       return false;
     }
 
     if (questionListData.length - 1 > questionNumber) {
+      setSelected(undefined);
       setQuestionNumber(value => value + 1);
     }
   };
 
   const onSelected = (item: Item) => {
-    console.log('seçilen : ', item);
-    console.log('seçilen : ', questionNumber);
-    // {"boldWord": "boşboğaz", "id": 5, "key": "E", "name": "E) Ağzında bakla ıslanmayan boşboğaz adamın tekiydi o.", "selected": true}
-
     setSelected(item);
   };
 
@@ -63,10 +64,10 @@ const Exam: React.FC<Props> = ({navigation, route}) => {
       />
       <Slider
         label="Konu Tarama Testi"
-        minimumValue={questionNumber + 1}
+        minimumValue={1}
         maximumValue={questionListData.length}
         setSliderValue={setQuestionNumber}
-        sliderValue={questionNumber}
+        sliderValue={questionNumber + 1}
         step={1}
       />
       <Layout scrollview>
@@ -86,7 +87,6 @@ const Exam: React.FC<Props> = ({navigation, route}) => {
         {selected && selected.name && (
           <CustomText text={selected.name} style={styles.questionDescription} />
         )}
-
         <RadioGroup
           selected={selected}
           onSelected={onSelected}

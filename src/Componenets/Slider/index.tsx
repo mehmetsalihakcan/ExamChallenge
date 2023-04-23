@@ -28,7 +28,7 @@ const CustomSlider: React.FC<Props> = ({
         <CustomText text={`${label}`} style={styles.label} />
 
         <View style={styles.ratioContaner}>
-          <CustomText text={`${minimumValue}`} style={styles.ratio} />
+          <CustomText text={`${sliderValue}`} style={styles.ratio} />
           <CustomText text={`/`} style={styles.ratio} />
           <CustomText text={`${maximumValue}`} style={styles.ratio} />
         </View>
@@ -36,17 +36,18 @@ const CustomSlider: React.FC<Props> = ({
 
       {/*
       // slider doğru çalışmıyor daha sonra tekrar bak
+        */}
       <Slider
         style={styles.slider}
-        minimumValue={sliderValue}
+        minimumValue={1}
         maximumValue={maximumValue}
         minimumTrackTintColor={COLORS.prograssColor}
         maximumTrackTintColor={COLORS.black}
         value={sliderValue}
         onValueChange={value => setSliderValue(value)}
         step={step}
+        //disabled
       />
-        */}
     </View>
   );
 };

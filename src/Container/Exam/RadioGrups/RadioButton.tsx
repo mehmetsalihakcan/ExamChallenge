@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, TouchableOpacity, Image} from 'react-native';
 import {RadioButtonProps} from './types';
-import CustomText from '../Common/Text';
-import COLORS from '../../Theme/Colors';
-import Icons from '../../Theme/Icons';
+import CustomText from '../../../Componenets/Common/Text';
+import COLORS from '../../../Theme/Colors';
+import Icons from '../../../Theme/Icons';
 import styles from './styles';
 
 const RadioButton = (props: RadioButtonProps) => {
@@ -14,34 +14,32 @@ const RadioButton = (props: RadioButtonProps) => {
   let radioInStyle = {};
   let radioOutStyle = {};
 
-  if (selected) {
-    if (selected?.id === item.id) {
-      viewBackground = selected.selected
-        ? {
-            backgroundColor: COLORS.successBackground,
-            borderWidth: 1,
-            borderColor: COLORS.success,
-          }
-        : {
-            backgroundColor: COLORS.error,
-          };
+  if (selected?.id === item.id) {
+    viewBackground = selected.selected
+      ? {
+          backgroundColor: COLORS.successBackground,
+          borderWidth: 1,
+          borderColor: COLORS.success,
+        }
+      : {
+          backgroundColor: COLORS.error,
+        };
 
-      textStyle = selected.selected
-        ? {
-            color: COLORS.success,
-          }
-        : {
-            color: COLORS.white,
-          };
+    textStyle = selected.selected
+      ? {
+          color: COLORS.success,
+        }
+      : {
+          color: COLORS.white,
+        };
 
-      radioInStyle = selected.selected
-        ? {backgroundColor: COLORS.success}
-        : {backgroundColor: COLORS.white};
+    radioInStyle = selected.selected
+      ? {backgroundColor: COLORS.success}
+      : {backgroundColor: COLORS.white};
 
-      radioOutStyle = selected.selected
-        ? {borderColor: COLORS.success}
-        : {borderColor: COLORS.white};
-    }
+    radioOutStyle = selected.selected
+      ? {borderColor: COLORS.success}
+      : {borderColor: COLORS.white};
   }
 
   return (
