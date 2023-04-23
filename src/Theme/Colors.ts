@@ -8,6 +8,7 @@ const COLORS = {
   // figmadan
   error: '#F85050',
   success: '#1ABC9C',
+  successBackground:'#1abc9c0d',
   headerBackground: '#287061',
   screenBackground: '#F5F5F5',
   white: '#FFFFFF',

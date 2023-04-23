@@ -34,6 +34,8 @@ const CustomSlider: React.FC<Props> = ({
         </View>
       </View>
 
+      {/*
+      // slider doğru çalışmıyor daha sonra tekrar bak
       <Slider
         style={styles.slider}
         minimumValue={sliderValue}
@@ -44,6 +46,7 @@ const CustomSlider: React.FC<Props> = ({
         onValueChange={value => setSliderValue(value)}
         step={step}
       />
+        */}
     </View>
   );
 };

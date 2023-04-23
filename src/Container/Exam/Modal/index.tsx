@@ -52,26 +52,31 @@ const CustomModal: React.FC<Props> = ({modalVisible, setModalVisible}) => {
   };
 
   const borderStyle = (key: string) => {
+    let previousStyle = {marginVertical: key === itemKeys.GIVE_UP ? 10 : 0};
     switch (key) {
       case itemKeys.ANSWER_KEY:
         return {
+          ...previousStyle,
           borderTopStartRadius: scale(10),
           borderTopEndRadius: scale(10),
         };
 
       case itemKeys.FINISH_TEST:
         return {
+          ...previousStyle,
           borderBottomEndRadius: scale(10),
           borderBottomStartRadius: scale(10),
         };
 
       case itemKeys.GIVE_UP:
         return {
+          ...previousStyle,
           borderRadius: scale(10),
         };
 
       default:
         return {
+          ...previousStyle,
           borderRadius: scale(0),
         };
     }
@@ -81,11 +86,7 @@ const CustomModal: React.FC<Props> = ({modalVisible, setModalVisible}) => {
     return (
       <TouchableOpacity
         onPress={() => handleItemPress(item.key)}
-        style={[
-          styles.item,
-          borderStyle(item.key),
-          {marginVertical: item.key === itemKeys.GIVE_UP ? 10 : 0},
-        ]}>
+        style={[styles.item, borderStyle(item.key)]}>
         <CustomText
           text={item.title}
           style={[

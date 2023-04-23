@@ -1,13 +1,11 @@
-import {Alert, Image, TouchableOpacity, View} from 'react-native';
+import {Image, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
 import styles from './styles';
 import {MainHeader, Slider} from '../../Componenets';
-import Option from './Option';
 import CustomText from '../../Componenets/Common/Text';
 import {Layout} from '../../Layout';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Icons from '../../Theme/Icons';
-import Questions from './Data';
 import ZoomMenu from './ZoomMenu';
 import Modal from './Modal';
 
@@ -16,10 +14,18 @@ type Props = {
   route?: any;
 };
 
+import RadioGroup from '../../Componenets/RadioGrups/RadioGroup';
+import {useRecoilState} from 'recoil';
+import {questionList} from '../../Store/atom';
+import {Item} from '../../Componenets/RadioGrups/types';
+
 const Exam: React.FC<Props> = ({navigation, route}) => {
   const insets = useSafeAreaInsets();
   const [questionNumber, setQuestionNumber] = useState(0);
   const [modalVisisble, setModalVisible] = useState(false);
+  const [selected, setSelected] = useState<Item>();
+  const [questionListData, setQuestionList] = useRecoilState(questionList);
+
   const onClickRightButton = () => {
     setModalVisible(true);
   };
@@ -31,9 +37,21 @@ const Exam: React.FC<Props> = ({navigation, route}) => {
   };
 
   const handleNext = () => {
-    if (Questions.length - 1 > questionNumber) {
-      setQuestionNumber(questionNumber => questionNumber + 1);
+    if (!selected) {
+      return false;
     }
+
+    if (questionListData.length - 1 > questionNumber) {
+      setQuestionNumber(value => value + 1);
+    }
+  };
+
+  const onSelected = (item: Item) => {
+    console.log('seçilen : ', item);
+    console.log('seçilen : ', questionNumber);
+    // {"boldWord": "boşboğaz", "id": 5, "key": "E", "name": "E) Ağzında bakla ıslanmayan boşboğaz adamın tekiydi o.", "selected": true}
+
+    setSelected(item);
   };
 
   return (
@@ -46,7 +64,7 @@ const Exam: React.FC<Props> = ({navigation, route}) => {
       <Slider
         label="Konu Tarama Testi"
         minimumValue={questionNumber + 1}
-        maximumValue={Questions.length}
+        maximumValue={questionListData.length}
         setSliderValue={setQuestionNumber}
         sliderValue={questionNumber}
         step={1}
@@ -54,22 +72,26 @@ const Exam: React.FC<Props> = ({navigation, route}) => {
       <Layout scrollview>
         <ZoomMenu
           questionNumber={questionNumber + 1}
-          category={Questions[questionNumber]?.category}
+          category={questionListData[questionNumber]?.category}
         />
         <CustomText
-          text={Questions[questionNumber].questionDescription}
+          text={questionListData[questionNumber].questionDescription}
           style={styles.questionDescription}
         />
         <CustomText
-          text={Questions[questionNumber].question}
+          text={questionListData[questionNumber].question}
           style={styles.question}
         />
 
-        {Questions[questionNumber].answerOptions.map((question, index) => (
-          <Option key={index}>
-            <CustomText text={question.option} />
-          </Option>
-        ))}
+        {selected && selected.name && (
+          <CustomText text={selected.name} style={styles.questionDescription} />
+        )}
+
+        <RadioGroup
+          selected={selected}
+          onSelected={onSelected}
+          items={questionListData[questionNumber].answerOptions}
+        />
       </Layout>
       <View style={styles.footer}>
         <TouchableOpacity

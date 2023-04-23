@@ -26,7 +26,7 @@ export default function Navigators() {
       <StatusBar translucent backgroundColor="transparent" />
       <StatusBar barStyle={isDarkMode ? 'dark-content' : 'light-content'} />
       <Stack.Navigator
-        initialRouteName={ScreenNames.HOME_SCREEN}
+        initialRouteName={ScreenNames.EXAM_SCREEN}
         screenOptions={{
           headerShown: false,
         }}>
