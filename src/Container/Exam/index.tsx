@@ -84,9 +84,6 @@ const Exam: React.FC<Props> = ({navigation, route}) => {
           style={styles.question}
         />
 
-        {selected && selected.name && (
-          <CustomText text={selected.name} style={styles.questionDescription} />
-        )}
         <RadioGroup
           selected={selected}
           onSelected={onSelected}
